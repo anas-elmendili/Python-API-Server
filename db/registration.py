@@ -2,9 +2,9 @@ from flask import Blueprint, request, jsonify
 from .db_connexion import get_db
 import secrets
 
-auth_bp = Blueprint("auth", __name__, url_prefix="/auth")
+auth_bp = Blueprint("auth", __name__, url_prefix="/registration")
 
-@auth_bp.route("/registration", methods=["POST"])
+@auth_bp.route("/", methods=["POST"])
 def registration():
     name = request.args.get("name")
     email = request.args.get("email")
