@@ -1,6 +1,7 @@
 from flask import Flask
 from db.auth import auth_bp
-from systems.get_systems import systems_bp, files_bp
+from systems.get_systems import systems_bp
+from data.get_files import files_bp
 from systems.get_processes import processes_bp
 from user.get_users import users_bp
 from user.get_groups import groups_bp
