@@ -75,8 +75,8 @@ graph TD
 ### Setup
 1.  **Clone the repository**
     ```bash
-    git clone https://github.com/your-repo/sys-admin-api.git
-    cd sys-admin-api
+    [git clone https://github.com/anas-elmendili/Python-API-Server.git
+    cd Python-API-Server
     ```
 
 2.  **Install Dependencies**
