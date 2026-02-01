@@ -51,7 +51,7 @@ graph TD
     
     Files --> FS[(File System)]
     Procs --> Kernel[Linux Kernel]
-    Users --> SysFiles[/etc/passwd & /etc/group]
+    Users --> SysFiles[/etc/passwd & /etc/group ]
     
     subgraph "Server (Root Privileges)"
         API
