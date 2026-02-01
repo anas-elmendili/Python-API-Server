@@ -1,7 +1,7 @@
 from flask import request, jsonify
 from db.auth import token_required, get_request_data
-from db.db_connexion import get_db
 from .get_groups import groups_bp
+from utils.command_runner import run_system_command
 
 @groups_bp.route('/', methods=['POST'])
 @token_required
@@ -10,11 +10,10 @@ def create_group():
     if not data or 'name' not in data:
         return jsonify({"error": "Missing name"}), 400
 
-    db = get_db()
-    cur = db.cursor()
-    try:
-        cur.execute("INSERT INTO groups (name) VALUES (?)", (data['name'],))
-        db.commit()
-        return jsonify({"message": "Group created"}), 201
-    except Exception:
-        return jsonify({"error": "Group exists"}), 409
+    group_name = data['name']
+    res = run_system_command(["groupadd", group_name])
+    
+    if not res['success']:
+        return jsonify({"error": f"Failed to create group: {res['error']}"}), 400
+        
+    return jsonify({"message": f"Group {group_name} created"}), 201

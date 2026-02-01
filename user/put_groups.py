@@ -1,22 +1,19 @@
-from flask import request, jsonify
+from flask import jsonify
 from db.auth import token_required, get_request_data
-from db.db_connexion import get_db
 from .get_groups import groups_bp
+from utils.command_runner import run_system_command
 
-@groups_bp.route('/<int:group_id>', methods=['PUT'])
+@groups_bp.route('/<groupname>', methods=['PUT'])
 @token_required
-def update_group(group_id):
+def update_group(groupname):
     data = get_request_data()
     if not data or 'name' not in data:
-        return jsonify({"error": "Missing name"}), 400
+        return jsonify({"error": "Missing new name"}), 400
 
-    db = get_db()
-    cur = db.cursor()
-    try:
-        cur.execute("UPDATE groups SET name = ? WHERE id = ?", (data['name'], group_id))
-        if cur.rowcount == 0:
-            return jsonify({"error": "Group not found"}), 404
-        db.commit()
-        return jsonify({"message": "Group updated"})
-    except Exception:
-        return jsonify({"error": "Name conflict"}), 409
+    new_name = data['name']
+    res = run_system_command(["groupmod", "-n", new_name, groupname])
+    
+    if not res['success']:
+        return jsonify({"error": f"Failed to update group: {res['error']}"}), 400
+        
+    return jsonify({"message": f"Group {groupname} renamed to {new_name}"})

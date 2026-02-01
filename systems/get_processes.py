@@ -1,4 +1,4 @@
-from flask import Blueprint, jsonify
+from flask import Blueprint, jsonify, request
 from db.auth import token_required
 import psutil
 
@@ -8,10 +8,11 @@ processes_bp = Blueprint('processes', __name__, url_prefix='/processes')
 @token_required
 def get_processes():
     try:
+        limit = int(request.args.get('limit', 50))
         procs = []
         for proc in psutil.process_iter(['pid', 'name', 'username']):
             procs.append(proc.info)
-            if len(procs) >= 50:
+            if len(procs) >= limit:
                 break
         return jsonify(procs)
     except Exception as e:

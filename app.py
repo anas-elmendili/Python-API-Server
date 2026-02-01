@@ -8,6 +8,13 @@ from db.db_connexion import init_db
 
 app = Flask(__name__)
 
+# Disable JSON key sorting
+app.config['JSON_SORT_KEYS'] = False
+try:
+    app.json.sort_keys = False
+except AttributeError:
+    pass
+
 # Register Blueprints
 app.register_blueprint(auth_bp)
 app.register_blueprint(systems_bp)

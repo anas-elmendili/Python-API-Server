@@ -1,0 +1,23 @@
+ * Serving Flask app 'app'
+ * Debug mode: on
+WARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.
+ * Running on all addresses (0.0.0.0)
+ * Running on http://127.0.0.1:5000
+ * Running on http://10.10.10.193:5000
+Press CTRL+C to quit
+ * Restarting with watchdog (inotify)
+ * Debugger is active!
+ * Debugger PIN: 798-344-137
+127.0.0.1 - - [01/Feb/2026 01:18:59] "POST /auth/login HTTP/1.1" 200 -
+127.0.0.1 - - [01/Feb/2026 01:18:59] "GET /files/?path=/ HTTP/1.1" 200 -
+ * Detected change in '/home/anas/Bureau/Python-API-Server/test_order.py', reloading
+ * Detected change in '/home/anas/Bureau/Python-API-Server/kill_server.py', reloading
+ * Restarting with watchdog (inotify)
+ * Debugger is active!
+ * Debugger PIN: 798-344-137
+10.10.10.1 - - [01/Feb/2026 01:19:40] "GET /files?path=/ HTTP/1.1" 308 -
+10.10.10.1 - - [01/Feb/2026 01:19:40] "GET /files/?path=/ HTTP/1.1" 200 -
+10.10.10.1 - - [01/Feb/2026 01:19:55] "GET /files?path=/home/anas HTTP/1.1" 308 -
+10.10.10.1 - - [01/Feb/2026 01:19:55] "GET /files/?path=/home/anas HTTP/1.1" 200 -
+10.10.10.1 - - [01/Feb/2026 01:20:18] "GET /files?path=/home/anas/.bashrc HTTP/1.1" 308 -
+10.10.10.1 - - [01/Feb/2026 01:20:18] "GET /files/?path=/home/anas/.bashrc HTTP/1.1" 200 -

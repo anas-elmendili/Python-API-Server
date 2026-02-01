@@ -1,36 +1,32 @@
-from flask import request, jsonify
-from werkzeug.security import generate_password_hash
+from flask import jsonify
 from db.auth import token_required, get_request_data
-from db.db_connexion import get_db
 from .get_users import users_bp
+from utils.command_runner import run_system_command
 
-@users_bp.route('/<int:user_id>', methods=['PUT'])
+@users_bp.route('/<username>', methods=['PUT'])
 @token_required
-def update_user(user_id):
+def update_user(username):
     data = get_request_data()
-    db = get_db()
-    cur = db.cursor()
-    
-    fields = []
-    values = []
-    
+    if not data:
+        return jsonify({"error": "No data provided"}), 400
+
     if 'password' in data:
-        fields.append("password = ?")
-        values.append(generate_password_hash(data['password']))
+        res = run_system_command(["chpasswd"], input_text=f"{username}:{data['password']}")
+        if not res['success']:
+             return jsonify({"error": f"Failed to update password: {res['error']}"}), 400
+
+    commands = []
+    if 'groups' in data:
+        # data['groups'] should be "sudo,docker"
+        commands.extend(["-aG", data['groups']])
     
-    if 'group_id' in data:
-        fields.append("group_id = ?")
-        values.append(data['group_id'])
-        
-    if not fields:
-        return jsonify({"error": "No data to update"}), 400
-        
-    values.append(user_id)
-    query = f"UPDATE users SET {', '.join(fields)} WHERE id = ?"
-    
-    cur.execute(query, values)
-    if cur.rowcount == 0:
-        return jsonify({"error": "User not found"}), 404
-        
-    db.commit()
-    return jsonify({"message": "User updated"})
+    if 'shell' in data:
+        commands.extend(["-s", data['shell']])
+
+    if commands:
+        full_command = ["usermod"] + commands + [username]
+        res = run_system_command(full_command)
+        if not res['success']:
+            return jsonify({"error": f"Failed to update user: {res['error']}"}), 400
+
+    return jsonify({"message": f"User {username} updated"})
