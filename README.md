@@ -117,7 +117,18 @@ All API endpoints (except login) require a **Bearer Token**.
 
 | Method | Endpoint | Description |
 | :--- | :--- | :--- |
-| `GET` | `/systems/` | Get CPU, Memory, and OS details. |
+| `GET` | `/systems/` | Get all system information (CPU, Memory, Disk, Network, OS). |
+| `GET` | `/systems/hostname` | Get the system hostname. |
+| `GET` | `/systems/fqdn` | Get the fully qualified domain name. |
+| `GET` | `/systems/platform` | Get OS platform details (system, release, version, etc.). |
+| `GET` | `/systems/boot_time` | Get the system boot time timestamp. |
+| `GET` | `/systems/uptime_seconds` | Get the system uptime in seconds. |
+| `GET` | `/systems/cpu` | Get detailed CPU statistics and usage. |
+| `GET` | `/systems/memory` | Get virtual and swap memory usage. |
+| `GET` | `/systems/disks` | Get disk partitions and I/O statistics. |
+| `GET` | `/systems/disks/<partition>` | Get usage info for a specific partition (e.g., `/systems/disks/dev/sda1`). |
+| `GET` | `/systems/networks` | Get network I/O and adapter addresses. |
+| `GET` | `/systems/networks/<adapter>` | Get address info for a specific adapter (e.g., `/systems/networks/eth0`). |
 
 ### File Management
 
