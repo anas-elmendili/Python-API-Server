@@ -8,16 +8,21 @@ Press CTRL+C to quit
  * Restarting with watchdog (inotify)
  * Debugger is active!
  * Debugger PIN: 798-344-137
-127.0.0.1 - - [01/Feb/2026 01:18:59] "POST /auth/login HTTP/1.1" 200 -
-127.0.0.1 - - [01/Feb/2026 01:18:59] "GET /files/?path=/ HTTP/1.1" 200 -
- * Detected change in '/home/anas/Bureau/Python-API-Server/test_order.py', reloading
- * Detected change in '/home/anas/Bureau/Python-API-Server/kill_server.py', reloading
+ * Detected change in '/home/anas/Bureau/Python-API-Server/test_refactor.py', reloading
+ * Detected change in '/home/anas/Bureau/Python-API-Server/test_refactor.py', reloading
+ * Detected change in '/home/anas/Bureau/Python-API-Server/test_refactor.py', reloading
  * Restarting with watchdog (inotify)
  * Debugger is active!
  * Debugger PIN: 798-344-137
-10.10.10.1 - - [01/Feb/2026 01:19:40] "GET /files?path=/ HTTP/1.1" 308 -
-10.10.10.1 - - [01/Feb/2026 01:19:40] "GET /files/?path=/ HTTP/1.1" 200 -
-10.10.10.1 - - [01/Feb/2026 01:19:55] "GET /files?path=/home/anas HTTP/1.1" 308 -
-10.10.10.1 - - [01/Feb/2026 01:19:55] "GET /files/?path=/home/anas HTTP/1.1" 200 -
-10.10.10.1 - - [01/Feb/2026 01:20:18] "GET /files?path=/home/anas/.bashrc HTTP/1.1" 308 -
-10.10.10.1 - - [01/Feb/2026 01:20:18] "GET /files/?path=/home/anas/.bashrc HTTP/1.1" 200 -
+127.0.0.1 - - [01/Feb/2026 01:33:29] "POST /auth/login HTTP/1.1" 200 -
+127.0.0.1 - - [01/Feb/2026 01:33:29] "POST /files/ HTTP/1.1" 201 -
+127.0.0.1 - - [01/Feb/2026 01:33:29] "PUT /files/?path=/tmp/gemini_refactor_test.txt HTTP/1.1" 200 -
+127.0.0.1 - - [01/Feb/2026 01:33:29] "GET /files/?path=/tmp/gemini_refactor_test.txt HTTP/1.1" 200 -
+127.0.0.1 - - [01/Feb/2026 01:33:29] "DELETE /files/?path=/tmp/gemini_refactor_test.txt HTTP/1.1" 200 -
+127.0.0.1 - - [01/Feb/2026 01:33:29] "GET /files/?path=/tmp/gemini_refactor_test.txt HTTP/1.1" 500 -
+ * Detected change in '/home/anas/Bureau/Python-API-Server/systems/get_systems.py', reloading
+ * Detected change in '/home/anas/Bureau/Python-API-Server/systems/get_systems.py', reloading
+ * Detected change in '/home/anas/Bureau/Python-API-Server/systems/get_systems.py', reloading
+ * Restarting with watchdog (inotify)
+ * Debugger is active!
+ * Debugger PIN: 798-344-137

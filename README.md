@@ -125,8 +125,8 @@ All API endpoints (except login) require a **Bearer Token**.
 | :--- | :--- | :--- | :--- |
 | `GET` | `/files/` | `?path=/tmp/test` | **Unified Endpoint:** <br>• **File:** Returns content. <br>• **Directory:** Returns detailed metadata list ordered by: `name`, `type`, `owner`, `permissions`, `group`, `size`, `modified`. |
 | `POST` | `/files/` | `{ "path": "/tmp/new", "is_dir": true }` | Create a file or directory. |
-| `PUT` | `/files/<path>` | `{ "content": "text", "chmod": "755", "chown": "root:root" }` | Update content, permissions, or owner. |
-| `DELETE`| `/files/<path>` | `?recursive=true` | Delete a file or directory. |
+| `PUT` | `/files/` | `?path=/tmp/file`<br>Body: `{ "content": "text", "chmod": "755" }` | Update content, permissions, or owner. |
+| `DELETE`| `/files/` | `?path=/tmp/file&recursive=true` | Delete a file or directory. |
 
 ### Process Management
 

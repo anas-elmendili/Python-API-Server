@@ -46,7 +46,10 @@ def get_files_route():
         result = list_files(path)
         
     if "error" in result:
-        return jsonify(result), 404 if "not found" in result['error'].lower() else 500
+        err = result['error'].lower()
+        if "not found" in err or "no such file" in err or "does not exist" in err:
+             return jsonify(result), 404
+        return jsonify(result), 500
     return jsonify(result)
 
 # Logic for other methods
@@ -73,36 +76,42 @@ def create_file_route():
         return jsonify(result), 409
     return jsonify(result), 201
 
-@files_bp.route('/<path:filename>', methods=['PUT'])
+@files_bp.route('/', methods=['PUT'])
 @token_required
-def update_file_route(filename):
+def update_file_route():
+    path = request.args.get('path')
+    if not path:
+        return jsonify({"error": "Missing path parameter"}), 400
+
     data = get_request_data()
     if not data:
          return jsonify({"error": "No data provided"}), 400
     
-    filename = "/" + filename if not filename.startswith("/") else filename
-    if not is_safe_path(filename):
+    if not is_safe_path(path):
          return jsonify({"error": "Invalid path"}), 400
 
     content = data.get('content')
     permissions = data.get('chmod')
     owner = data.get('chown')
 
-    result = update_item(filename, content, permissions, owner)
+    result = update_item(path, content, permissions, owner)
     if "error" in result:
         return jsonify(result), 400
     return jsonify(result)
 
-@files_bp.route('/<path:filename>', methods=['DELETE'])
+@files_bp.route('/', methods=['DELETE'])
 @token_required
-def delete_file_route(filename):
-    filename = "/" + filename if not filename.startswith("/") else filename
-    if not is_safe_path(filename):
+def delete_file_route():
+    path = request.args.get('path')
+    if not path:
+        return jsonify({"error": "Missing path parameter"}), 400
+        
+    if not is_safe_path(path):
          return jsonify({"error": "Invalid path"}), 400
          
     recursive = request.args.get('recursive', 'false').lower() == 'true'
 
-    result = delete_item(filename, recursive)
+    result = delete_item(path, recursive)
     if "error" in result:
         return jsonify(result), 404
     return jsonify(result)
